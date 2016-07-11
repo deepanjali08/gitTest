@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://www.thehindu.com/?service=rss";
+        String url ="ttp://stackoverflow.com/feeds/tag?tagnames=android&sort=newest";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
