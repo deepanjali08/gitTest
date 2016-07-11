@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //
         final TextView mTextView = (TextView) findViewById(R.id.text);
-        final InputStream stream;
+         InputStream stream;
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -47,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                         mTextView.setText("Response is: "+ response.substring(0,500));
                         stream = new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8));
 
+                        StackOverflowXmlParser parser=new StackOverflowXmlParser();
+                        try {
+                            parser.parse(stream);
+                        } catch (XmlPullParserException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -58,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-        StackOverflowXmlParser parser=new StackOverflowXmlParser();
-        try {
-            parser.parse(stream);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        StackOverflowXmlParser parser=new StackOverflowXmlParser();
+//        try {
+//            parser.parse(stream);
+//        } catch (XmlPullParserException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
