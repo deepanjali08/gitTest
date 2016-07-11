@@ -17,6 +17,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //
         final TextView mTextView = (TextView) findViewById(R.id.text);
-
+        final InputStream stream;
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         mTextView.setText("Response is: "+ response.substring(0,500));
+                        stream = new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8));
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -49,7 +58,14 @@ public class MainActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-
+        StackOverflowXmlParser parser=new StackOverflowXmlParser();
+        try {
+            parser.parse(stream);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
