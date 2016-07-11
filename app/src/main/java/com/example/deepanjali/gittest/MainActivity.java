@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 mTextView.setText("That didn't work!");
             }
         });
+
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
