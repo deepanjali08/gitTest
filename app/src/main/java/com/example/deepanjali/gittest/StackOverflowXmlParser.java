@@ -1,5 +1,6 @@
 package com.example.deepanjali.gittest;
 
+import android.util.Log;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -44,6 +45,7 @@ public class StackOverflowXmlParser {
                 skip(parser);
             }
         }
+        Log.d(String.valueOf(entries.size()),"size");
         return entries;
     }
     public static  class Entry {
@@ -140,7 +142,6 @@ public class StackOverflowXmlParser {
             }
         }
     }
-
 
 
 
