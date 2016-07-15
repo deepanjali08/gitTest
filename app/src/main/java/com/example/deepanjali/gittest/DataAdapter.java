@@ -46,6 +46,7 @@ public class DataAdapter  extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     public int getItemCount() {
         return countries.size();
     }
+    //
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tv_country;
