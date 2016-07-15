@@ -45,7 +45,7 @@ public class StackOverflowXmlParser {
                 skip(parser);
             }
         }
-        Log.d(String.valueOf(entries.size()),"size");
+//        Log.d(String.valueOf(entries.size()),"size");
         return entries;
     }
     public static  class Entry {

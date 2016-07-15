@@ -29,10 +29,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     InputStream stream;
-    private ArrayList<CustomList> countries ;
+    public List<StackOverflowXmlParser.Entry> countries;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
                         StackOverflowXmlParser parser = new StackOverflowXmlParser();
                         try {
-                            parser.parse(stream);
+//                            countries = new ArrayList<StackOverflowXmlParser.Entry>(parser.parse(stream));
+                           countries=parser.parse(stream);
                         } catch (XmlPullParserException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -81,15 +84,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        countries = new ArrayList<CustomList>();
+//        countries = new List<StackOverflowXmlParser.Entry>();
 //        countries = new ArrayList<>();
 
 
-
-        countries.add(new CustomList("Html","The Powerful Hypertext markup language"));
-        countries.add(new CustomList("CSS","Cascading style sheet"));
-        countries.add(new CustomList("Javascript","Code with Javascript"));
-        countries.add(new CustomList("Java","Code with Java ,Independent Platform"));
+//
+//        countries.add(new CustomList("Html","The Powerful Hypertext markup language"));
+//        countries.add(new CustomList("CSS","Cascading style sheet"));
+//        countries.add(new CustomList("Javascript","Code with Javascript"));
+//        countries.add(new CustomList("Java","Code with Java ,Independent Platform"));
 
 
         RecyclerView.Adapter adapter = new DataAdapter(countries);

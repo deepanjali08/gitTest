@@ -6,19 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by deepanjali on 14/7/16.
  */
 public class DataAdapter  extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
-    private ArrayList<CustomList> countries;
+    private List<StackOverflowXmlParser.Entry> countries;
 
 
     public String names;
     public String desc;
 
-    public DataAdapter(ArrayList<CustomList> countries) {
+    public DataAdapter(List<StackOverflowXmlParser.Entry> countries) {
         this.countries = countries;
     }
 
@@ -33,8 +35,8 @@ public class DataAdapter  extends RecyclerView.Adapter<DataAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
 
-        viewHolder.tv_country.setText(countries.get(i).names);
-        viewHolder.tv_desc.setText(countries.get(i).desc);
+        viewHolder.tv_country.setText(countries.get(i).title);
+        viewHolder.tv_desc.setText(countries.get(i).summary);
 //        viewHolder.tv_image.setImageResource(countries.get(i));
 
 //
