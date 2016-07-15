@@ -45,7 +45,7 @@ public class StackOverflowXmlParser {
                 skip(parser);
             }
         }
-        Log.d(String.valueOf(entries.size()),"size is thdhhdhdhdhh");
+        Log.d(String.valueOf(entries.size()),"size is thdhhd");
         return entries;
     }
     public static  class Entry {
@@ -53,7 +53,7 @@ public class StackOverflowXmlParser {
         public final String link;
         public final String summary;
 
-        private Entry(String title, String summary, String link) {
+        public Entry(String title, String summary, String link) {
             this.title = title;
             this.summary = summary;
             this.link = link;
