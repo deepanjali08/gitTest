@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         StackOverflowXmlParser parser = new StackOverflowXmlParser();
                         try {
 //                            countries = new ArrayList<StackOverflowXmlParser.Entry>(parser.parse(stream));
-                           countries=parser.parse(stream);
+                           countries= parser.parse(stream);
                         } catch (XmlPullParserException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
