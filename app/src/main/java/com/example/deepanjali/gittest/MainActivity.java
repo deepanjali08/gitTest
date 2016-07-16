@@ -1,5 +1,6 @@
 package com.example.deepanjali.gittest;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +36,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     InputStream stream;
-    public List<StackOverflowXmlParser.Entry> countries;
+    public List<StackOverflowXmlParser.Item>countries;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
 // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://stackoverflow.com/feeds/tag?tagnames=android&sort=newest";
+//        String url = "http://www.thehindu.com/?service=rss";
+        String url = "http://feeds.bbci.co.uk/news/rss.xml";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -55,18 +58,44 @@ public class MainActivity extends AppCompatActivity {
 //                        mTextView.setText("Response is: "+ response.substring(0,500));
                         stream = new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8));
 
+
+//                        ProgressDialog progressDialog = null;
+//                        // ...
+//                        progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", true);
+//                        new Thread() {
+//                            public void run() {
+//                                try{
+//                                    // Grab your data
+//                                } catch (Exception e) {
+//                                }
+//
+//                                // When grabbing data is finish: Dismiss your Dialog
+//                                progressDialog.dismiss();
+//                            }+
+//
+//                        }.start();
+//
+
+
                         StackOverflowXmlParser parser = new StackOverflowXmlParser();
                         try {
-//                            countries = new ArrayList<StackOverflowXmlParser.Entry>(parser.parse(stream));
-                           countries= parser.parse(stream);
-                            countries.add(new StackOverflowXmlParser.Entry("Html","The Powerful Hypertext markup language","www.google.com"));
-                            countries.add(new StackOverflowXmlParser.Entry("CSS","Cascading style sheet","www.yahoo.com"));
+//                            countries = new ArrayList<StackOverflowXmlParser.Item>(parser.parse(stream));
+//                            ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+//                                    "Loading. Please wait...", true);
+                            countries.addAll(parser.parse(stream));
+//                            countries.add(new StackOverflowXmlParser.Item("Html","The Powerful Hypertext markup language","www.google.com"));
+//                            countries.add(new StackOverflowXmlParser.Item("CSS","Cascading style sheet","www.yahoo.com"));
 
+
+                            Log.d(String.valueOf(countries.size()),"what the");
 
                         } catch (XmlPullParserException e) {
                             e.printStackTrace();
+                            Log.d(e.getLocalizedMessage(),"what the hell");
                         } catch (IOException e) {
                             e.printStackTrace();
+                            Log.d(e.getLocalizedMessage(), "what ");
+
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -88,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-//        countries = new List<StackOverflowXmlParser.Entry>();
+//        countries = new List<StackOverflowXmlParser.Item>();
         countries = new ArrayList<>();
 
 
 //
-        countries.add(new StackOverflowXmlParser.Entry("Html","The Powerful Hypertext markup language","www.google.com"));
+//        countries.add(new StackOverflowXmlParser.Entry("Html","The Powerful Hypertext markup language","www.google.com"));
 //        countries.add(new CustomList("CSS","Cascading style sheet"));
 //        countries.add(new CustomList("Javascript","Code with Javascript"));
 //        countries.add(new CustomList("Java","Code with Java ,Independent Platform"));
@@ -115,8 +144,9 @@ public class MainActivity extends AppCompatActivity {
 
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if(child != null && gestureDetector.onTouchEvent(e)) {
-                    int position = rv.getChildAdapterPosition(child);
-                    Toast.makeText(getApplicationContext(), countries.get(position).toString(), Toast.LENGTH_SHORT).show();
+                    final int position = rv.getChildAdapterPosition(child);
+//                    Toast.makeText(getApplicationContext(), countries.get(position).link, Toast.LENGTH_SHORT).show();
+//                    countries.get(position).link;
                 }
 
                 return false;
